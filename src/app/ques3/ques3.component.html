@@ -1,16 +1,5 @@
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/ques3">Ques3</a>
-      </li>
-   
-    </ul>
-  </nav>
-  
+<app-home></app-home>
 <div class="container">
     <div class="row mt-5">
         <div class="col-lg-12">
@@ -20,12 +9,15 @@
             <form [formGroup]="apiForm">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Phone</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" formControlName="phone" aria-describedby="emailHelp" placeholder="Enter Phone">
-                  
+                  <input type="text" class="form-control" id="exampleInputEmail1" formControlName="phone" aria-describedby="emailHelp" placeholder="Enter Phone" [ngClass]="{'is-invalid': apiForm.get('phone').touched && apiForm.get('phone').invalid}">
+                  <div class="invalid-feedback">
+                    <div>**First Name Is Required**</div>
+     
+                 </div>
                 </div>
               
                <div class="d-flex justify-content-center">
-                <button type="submit" (click)="Add()" class="btn btn-primary">Add Number</button>
+                <button type="submit" (click)="Add()" class="btn btn-primary" [disabled]="!apiForm.valid">Add Number</button>
                </div>
               </form>
         </div>
@@ -58,6 +50,8 @@
                 
                 <td>{{obj.phone}}</td>
                 <td><button type="button" (click)="deleteData(obj._id)" class="btn btn-danger">Delete</button></td>
+                <td><button type="button" (click)="setModalId(obj._id)" class="btn btn-danger"  data-toggle="modal" data-target="#exampleModal">Edit</button></td>
+
 
         
               </tr>
@@ -70,4 +64,44 @@
       </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Update User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+              </div>
+              <div class="modal-body">
+                  <form class="form-horizontal" [formGroup]="updateForm">
+  
+                      <div class="form-group">
+                          <label for="name" class="cols-sm-2 control-label">Your Phone</label>
+                          <div class="cols-sm-10">
+                              <div class="input-group">
+  
+                                  <input type="text" formControlName="phone" class="form-control" id="name" placeholder="Enter your Phone" [ngClass]="{'is-invalid': apiForm.get('phone').touched && apiForm.get('phone').invalid}">
+                                  <div class="invalid-feedback">
+                                    <div>**First Name Is Required**</div>
+                     
+                                 </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+               
+  
+  
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" (click)="updateUser()" [disabled]="!apiForm.valid" class="btn btn-primary">Save changes</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
 </div>

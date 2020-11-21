@@ -26,5 +26,24 @@ export class CallApiService {
     return this.http.delete(`${this.url}/users/deleteSpecific/${id}`).toPromise();
 
   }
+
+  
+  async updateUser(id,formData){
+
+    return this.http.patch(`${this.url}/users/updateUser/${id}`, formData).toPromise();
+
+  }
+
+  async Newdata(formData){
+    return this.http.post(`${this.url}/users/task`, formData).toPromise();
+
+  }
+
+  
+
+  async getTask(){
+    return this.http.get(`${this.url}/users/getTask`).toPromise();
+
+  }
   
 }
